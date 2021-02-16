@@ -1,6 +1,9 @@
 const express = require("express");
 const { check } = require("express-validator");
-const { createProject } = require("../controllers/projectsController");
+const {
+    createProject,
+    getProjectsByUser,
+} = require("../controllers/projectsController");
 const authentication = require("../middlewares/authentication");
 const router = express.Router();
 
@@ -11,4 +14,6 @@ router.post(
     [check("name", "The name is required").not().isEmpty()],
     createProject
 );
+
+router.get("/", authentication, getProjectsByUser);
 module.exports = router;

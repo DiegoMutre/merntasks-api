@@ -19,3 +19,15 @@ exports.createProject = async (req, res) => {
         res.status(500).json({ msg: "There was a mistake" });
     }
 };
+
+exports.getProjectsByUser = async (req, res) => {
+    try {
+        const projects = await Project.find({ creator: req.user.id }).sort({
+            created_at: -1,
+        });
+        res.json(projects);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "There was a mistake" });
+    }
+};
