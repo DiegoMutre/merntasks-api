@@ -8,6 +8,10 @@ const app = express();
 connectDB();
 
 const PORT = process.env.PORT || 4000;
+
+// Routes for users
+app.use("/api/users", require("./routes/users"));
+
 app.listen(PORT, () => {
     console.log(`Server running at ${PORT}`);
 });
