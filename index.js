@@ -15,6 +15,9 @@ const PORT = process.env.PORT || 4000;
 // Routes for users
 app.use("/api/users", require("./routes/users"));
 
+// Routes for auth
+app.use("/api/auth", require("./routes/auth"));
+
 app.listen(PORT, () => {
     console.log(`Server running at ${PORT}`);
 });
