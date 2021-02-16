@@ -1,7 +1,9 @@
 // Routes for users
 const express = require("express");
+const { createUser } = require("../controllers/usersController");
 const router = express.Router();
 
-router.post("/", () => {});
+// /api/users
+router.post("/", createUser);
 
 module.exports = router;
