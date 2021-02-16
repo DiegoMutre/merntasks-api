@@ -31,3 +31,27 @@ exports.getProjectsByUser = async (req, res) => {
         res.status(500).json({ msg: "There was a mistake" });
     }
 };
+
+exports.updateProjectById = async (req, res) => {
+    // Check for errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    // Create new project to update
+    const { name } = req.body;
+    const newProject = {};
+    if (name) {
+        newProject.name = name;
+    }
+
+    try {
+        // TODO: Check project id
+        // TODO: Check project creator
+        // TODO: Update the project
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "There was a mistake" });
+    }
+};
