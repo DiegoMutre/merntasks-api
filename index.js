@@ -18,6 +18,9 @@ app.use("/api/users", require("./routes/users"));
 // Routes for auth
 app.use("/api/auth", require("./routes/auth"));
 
+// Routes for projects
+app.use("/api/projects", require("./routes/projects"));
+
 app.listen(PORT, () => {
     console.log(`Server running at ${PORT}`);
 });
