@@ -1,3 +1,3 @@
 exports.createUser = (req, res) => {
-    res.send("Creating user...");
+    console.log(req.body);
 };
