@@ -4,7 +4,8 @@
   "description": "API for MERNTasks",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .",
+    "dev": "nodemon ."
   },
   "author": "Diego Mutre Martinez",
   "license": "ISC",
