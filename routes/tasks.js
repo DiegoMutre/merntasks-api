@@ -7,7 +7,10 @@ const router = express.Router();
 router.post(
     "/",
     authentication,
-    [check("name", "The name is required").not().isEmpty()],
+    [
+        check("name", "The name is required").not().isEmpty(),
+        check("project_id", "The project is required").not().isEmpty(),
+    ],
     createTask
 );
 
