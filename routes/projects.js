@@ -4,6 +4,7 @@ const {
     createProject,
     getProjectsByUser,
     updateProjectById,
+    deleteProjectById,
 } = require("../controllers/projectsController");
 const authentication = require("../middlewares/authentication");
 const router = express.Router();
@@ -24,4 +25,6 @@ router.put(
     [check("name", "The name is required").not().isEmpty()],
     updateProjectById
 );
+
+router.delete("/:id", authentication, deleteProjectById);
 module.exports = router;

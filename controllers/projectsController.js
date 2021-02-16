@@ -71,3 +71,26 @@ exports.updateProjectById = async (req, res) => {
         res.status(500).json({ msg: "There was a mistake" });
     }
 };
+
+exports.deleteProjectById = async (req, res) => {
+    try {
+        // Get the project by id
+        let projectToDelete = await Project.findById(req.params.id);
+        if (!projectToDelete) {
+            return res.status(404).json({ msg: "Project not Found" });
+        }
+
+        // Check if the user is the owner
+        if (projectToDelete.creator.toString() !== req.user.id) {
+            return res.status(401).json({ msg: "No Authorized" });
+        }
+
+        // Delete the project
+        await Project.findOneAndRemove({ _id: req.params.id });
+
+        res.json({ msg: "Project successfully deleted" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "There was a mistake" });
+    }
+};
