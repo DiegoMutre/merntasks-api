@@ -3,6 +3,7 @@ const { check } = require("express-validator");
 const {
     createTask,
     getTasksByProject,
+    updateTask,
 } = require("../controllers/tasksController");
 const authentication = require("../middlewares/authentication");
 const router = express.Router();
@@ -18,5 +19,7 @@ router.post(
 );
 
 router.get("/", authentication, getTasksByProject);
+
+router.put("/:id", authentication, updateTask);
 
 module.exports = router;

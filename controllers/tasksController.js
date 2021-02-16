@@ -56,3 +56,41 @@ exports.getTasksByProject = async (req, res) => {
         res.status(500).json({ msg: "There was a mistake" });
     }
 };
+
+exports.updateTask = async (req, res) => {
+    try {
+        const { project_id, name, state } = req.body;
+
+        const project = await Project.findById(project_id);
+
+        if (project.creator.toString() !== req.user.id) {
+            return res.status(401).json({ msg: "No authorized" });
+        }
+
+        const task = await Task.findById(req.params.id);
+
+        if (!task) {
+            return res.status(404).json({ msg: "Task not found" });
+        }
+
+        let taskToUpdate = {};
+
+        if (name) {
+            taskToUpdate.name = name;
+        }
+
+        if (state) {
+            taskToUpdate.state = state;
+        }
+
+        taskToUpdate = await Task.findOneAndUpdate(
+            { _id: req.params.id },
+            { $set: taskToUpdate },
+            { new: true }
+        );
+        res.json(taskToUpdate);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "There was a mistake" });
+    }
+};
