@@ -4,6 +4,7 @@ const {
     createTask,
     getTasksByProject,
     updateTask,
+    deleteTask,
 } = require("../controllers/tasksController");
 const authentication = require("../middlewares/authentication");
 const router = express.Router();
@@ -21,5 +22,7 @@ router.post(
 router.get("/", authentication, getTasksByProject);
 
 router.put("/:id", authentication, updateTask);
+
+router.delete("/:id", authentication, deleteTask);
 
 module.exports = router;

@@ -94,3 +94,27 @@ exports.updateTask = async (req, res) => {
         res.status(500).json({ msg: "There was a mistake" });
     }
 };
+
+exports.deleteTask = async (req, res) => {
+    try {
+        const { project_id } = req.body;
+
+        const project = await Project.findById(project_id);
+
+        if (project.creator.toString() !== req.user.id) {
+            return res.status(401).json({ msg: "No authorized" });
+        }
+
+        const task = await Task.findById(req.params.id);
+
+        if (!task) {
+            return res.status(404).json({ msg: "Task not found" });
+        }
+
+        await Task.findOneAndRemove({ _id: req.params.id });
+        res.json({ msg: "Task deleted" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "There was a mistake" });
+    }
+};
