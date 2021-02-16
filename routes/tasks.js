@@ -1,6 +1,9 @@
 const express = require("express");
 const { check } = require("express-validator");
-const { createTask } = require("../controllers/tasksController");
+const {
+    createTask,
+    getTasksByProject,
+} = require("../controllers/tasksController");
 const authentication = require("../middlewares/authentication");
 const router = express.Router();
 
@@ -13,5 +16,7 @@ router.post(
     ],
     createTask
 );
+
+router.get("/", authentication, getTasksByProject);
 
 module.exports = router;

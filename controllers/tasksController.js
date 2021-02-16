@@ -30,3 +30,29 @@ exports.createTask = async (req, res) => {
         res.status(500).json({ msg: "There was a mistake" });
     }
 };
+
+exports.getTasksByProject = async (req, res) => {
+    try {
+        // Get project by id
+        const project = await Project.findById(req.body.project_id);
+
+        if (!project) {
+            return res.status(401).json({ msg: "Project not found" });
+        }
+
+        // Check if the user is the project owner
+        if (project.creator.toString() !== req.user.id) {
+            return res.status(401).json({ msg: "No authorized" });
+        }
+
+        // Get tasks by project_id
+        const tasks = await Task.find({ project_id: req.body.project_id });
+        if (!tasks) {
+            return res.status(404).json({ msg: "Tasks not found" });
+        }
+        res.json(tasks);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "There was a mistake" });
+    }
+};
