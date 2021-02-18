@@ -34,7 +34,7 @@ exports.createTask = async (req, res) => {
 exports.getTasksByProject = async (req, res) => {
     try {
         // Get project by id
-        const project = await Project.findById(req.body.project_id);
+        const project = await Project.findById(req.query.project_id);
 
         if (!project) {
             return res.status(401).json({ msg: "Project not found" });
@@ -46,7 +46,7 @@ exports.getTasksByProject = async (req, res) => {
         }
 
         // Get tasks by project_id
-        const tasks = await Task.find({ project_id: req.body.project_id });
+        const tasks = await Task.find({ project_id: req.query.project_id });
         if (!tasks) {
             return res.status(404).json({ msg: "Tasks not found" });
         }
