@@ -46,7 +46,9 @@ exports.getTasksByProject = async (req, res) => {
         }
 
         // Get tasks by project_id
-        const tasks = await Task.find({ project_id: req.query.project_id });
+        const tasks = await Task.find({
+            project_id: req.query.project_id,
+        }).sort({ created_at: -1 });
         if (!tasks) {
             return res.status(404).json({ msg: "Tasks not found" });
         }
