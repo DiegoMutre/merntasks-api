@@ -75,15 +75,10 @@ exports.updateTask = async (req, res) => {
             return res.status(404).json({ msg: "Task not found" });
         }
 
-        let taskToUpdate = {};
-
-        if (name) {
-            taskToUpdate.name = name;
-        }
-
-        if (state) {
-            taskToUpdate.state = state;
-        }
+        let taskToUpdate = {
+            name,
+            state,
+        };
 
         taskToUpdate = await Task.findOneAndUpdate(
             { _id: req.params.id },
@@ -99,7 +94,7 @@ exports.updateTask = async (req, res) => {
 
 exports.deleteTask = async (req, res) => {
     try {
-        const { project_id } = req.body;
+        const { project_id } = req.query;
 
         const project = await Project.findById(project_id);
 
